@@ -1,2 +1,2 @@
 # ReadLater
-ReadLater is a Google chrome plugin that can store articles,blogs, interesting sites, threads and so on for the user to read later. 
+ReadLater is a chrome extension that can stores articles, blogs, interesting sites, threads etc for the user to read later. 

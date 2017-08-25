@@ -1,0 +1,17 @@
+{
+  "manifest_version": 2,
+
+  "name": "Read Later",
+  "description": "This extension stores articles/blogs/news and etc for the user to read later",
+  "version": "1.0",
+
+  "browser_action": {
+    "default_icon": "./assets/readlatericon.png",
+    "default_popup": "popup.html",
+    "default_title": "Read Later"
+  },
+  "permissions": [
+    "activeTab",
+    "https://ajax.googleapis.com/"
+  ]
+}

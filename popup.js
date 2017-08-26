@@ -41,3 +41,9 @@ function getCurrentTabUrl(callback) {
     // });
     // alert(url); // Shows "undefined", because chrome.tabs.query is async.
 }
+
+document.addEventListener('DOMContentLoaded', function() {
+    getCurrentTabUrl(function(url) {
+        document.getElementById('')
+    });
+});

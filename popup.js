@@ -32,6 +32,7 @@ function getCurrentTabUrl(callback) {
 
         callback(url);
     });
+
     // Most methods of the Chrome extension APIs are asynchronous. This means that
     // you CANNOT do something like this:
     //
@@ -42,8 +43,14 @@ function getCurrentTabUrl(callback) {
     // alert(url); // Shows "undefined", because chrome.tabs.query is async.
 }
 
+var listItems = document.getElementById('listItems');
+
 document.addEventListener('DOMContentLoaded', function() {
     getCurrentTabUrl(function(url) {
-        document.getElementById('')
+        /*console.log(url);
+        var p = document.createElement("div");
+        var text = document.createTextNode("Testing");
+        p.appendChild(text);
+        listItems.appendChild(p);*/
     });
 });

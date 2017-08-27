@@ -7,21 +7,8 @@
 <html>
 <head>
     <title>Getting Started Extension's Popup</title>
-    <style>
-        body {
-            font-family: 'Avenir', Helvetica, Arial, sans-serif;
-            font-size: 100%;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-            text-align: center;
-            color: #2c3e50;
-        }
-
-        .navbar {
-            background-color: #3498db;
-        }
-    </style>
-
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="style.css">
     <!--
       - JavaScript and HTML must be in separate files: see our Content Security
       - Policy documentation[1] for details and explanation.
@@ -31,11 +18,20 @@
     <script src="popup.js" async></script>
 </head>
 <body>
-<div class="container">
-    <div class="navbar">
-        <p>Read-Later List</p>
+<div id="container">
+    <div id="navbar">
+        <i id="hamburgerIcon"></i>
+        <h1 id="title">Reading List</h1>
+        <i id="bookmarkIcon"></i>
+        <h2 id="numberOfItemsText">You have 5 items to read</h2>
     </div>
-    <div class=""
+    <div id="listItems">
+        <i class="label"></i>
+        <h2 class="titleOfArticle">Title of article</h2>
+        <h4 class="urlToArticle">Url to article</h4>
+        <h4 class="timeStamp">4.45 AM</h4>
+        <i class="divider"></i>
+    </div>
 </div>
 </body>
 </html>

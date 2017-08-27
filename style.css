@@ -1,0 +1,119 @@
+html {
+    min-width: 414px;
+    min-height: 736px;
+}
+body {
+    min-width: 414px;
+    min-height: 736px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 100%;
+    font-weight: bold;
+    color: #FFFFFF;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background-color: #2C304F;
+    margin: 0px;
+}
+
+#container {
+    height: 100%;
+    width: 100%;
+}
+
+#navbar {
+    width: 414px;
+    height: 158px;
+    background: linear-gradient(110.89deg, #EC669C 0%, #F2994A 100%);
+    background-color: #2C304F;
+}
+
+#hamburgerIcon {
+    position: absolute;
+    width: 25px;
+    height: 19px;
+    left: 28px;
+    top: 45px;
+    background-image: url("./assets/hamburgericon.png");
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+#title {
+    position: absolute;
+    margin: 0px;
+    font-size: 24px;
+    left: 142px;
+    top: 40px;
+}
+
+#bookmarkIcon {
+    position: absolute;
+    width: 30px;
+    height: 46.36px;
+    left: 358.5px;
+    top: 35px;
+    background-image: url("./assets/bookmarkicon.png");
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+#numberOfItemsText {
+    position: absolute;
+    margin: 0px;
+    left: 114px;
+    top: 103px;
+    font-size: 18px;
+}
+
+
+.label {
+    position: absolute;
+    width: 60px;
+    height: 28px;
+    left: 28px;
+    top: 202px;
+    background-image: url("./assets/label green.png");
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.titleOfArticle {
+    position: absolute;
+    margin: 0px;
+    width: 136px;
+    height: 25px;
+    left: 112px;
+    top: 182px;
+    font-size: 18px;
+}
+
+.urlToArticle {
+    position: absolute;
+    margin: 0px;
+    width: 243px;
+    height: 46px;
+    left: 116px;
+    top: 220px;
+    font-size: 13px;
+    color: #BDBDBD;
+}
+
+.timeStamp {
+    position: absolute;
+    margin: 0px;
+    width: 243px;
+    height: 46px;
+    left: 330px;
+    top: 182px;
+    font-size: 13px;
+    color: #BDBDBD;
+}
+
+.divider {
+    position: absolute;
+    width: 414px;
+    height: 1px;
+    left: 0px;
+    top: 264px;
+    background-image: url("./assets/divider.png");
+}

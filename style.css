@@ -21,10 +21,10 @@ body {
 }
 
 #navbar {
+    position: relative;
     width: 414px;
-    height: 158px;
+    height: 140px;
     background: linear-gradient(110.89deg, #EC669C 0%, #F2994A 100%);
-    background-color: #2C304F;
 }
 
 #hamburgerIcon {
@@ -32,7 +32,7 @@ body {
     width: 25px;
     height: 19px;
     left: 28px;
-    top: 45px;
+    top: 30px;
     background-image: url("./assets/hamburgericon.png");
     background-position: center;
     background-repeat: no-repeat;
@@ -43,7 +43,7 @@ body {
     margin: 0px;
     font-size: 24px;
     left: 142px;
-    top: 40px;
+    top: 25px;
 }
 
 #bookmarkIcon {
@@ -51,7 +51,7 @@ body {
     width: 30px;
     height: 46.36px;
     left: 358.5px;
-    top: 35px;
+    top: 20px;
     background-image: url("./assets/bookmarkicon.png");
     background-position: center;
     background-repeat: no-repeat;
@@ -61,59 +61,51 @@ body {
     position: absolute;
     margin: 0px;
     left: 114px;
-    top: 103px;
+    top: 88px;
     font-size: 18px;
+}
+
+#listItems{
+    position: static;
 }
 
 
 .label {
-    position: absolute;
-    width: 60px;
-    height: 28px;
+    display: inline-block;
+    position: relative;
     left: 28px;
-    top: 202px;
-    background-image: url("./assets/label green.png");
-    background-position: center;
-    background-repeat: no-repeat;
+    top: 13px;
+    vertical-align: middle;
 }
 
 .titleOfArticle {
-    position: absolute;
+    display: inline-block;
+    position: relative;
     margin: 0px;
-    width: 136px;
-    height: 25px;
-    left: 112px;
-    top: 182px;
-    font-size: 18px;
-}
-
-.urlToArticle {
-    position: absolute;
-    margin: 0px;
-    width: 243px;
-    height: 46px;
-    left: 116px;
-    top: 220px;
-    font-size: 13px;
-    color: #BDBDBD;
+    width: 185px;
+    min-height: 25px;
+    left: 61px;
+    top: 15px;
+    font-size: 14px;
+    vertical-align: middle;
 }
 
 .timeStamp {
-    position: absolute;
+    display: inline-block;
+    position: relative;
     margin: 0px;
-    width: 243px;
     height: 46px;
-    left: 330px;
-    top: 182px;
+    left: 95px;
+    top: 10px;
     font-size: 13px;
+    vertical-align: middle;
     color: #BDBDBD;
 }
 
 .divider {
-    position: absolute;
+    position: relative;
     width: 414px;
     height: 1px;
     left: 0px;
-    top: 264px;
-    background-image: url("./assets/divider.png");
+    top: 15px;
 }

@@ -15,7 +15,7 @@
       -
       - [1]: https://developer.chrome.com/extensions/contentSecurityPolicy
      -->
-    <script src="popup.js" async></script>
+    <script src="popup.js" defer></script>
 </head>
 <body>
 <div id="container">
@@ -25,13 +25,14 @@
         <i id="bookmarkIcon"></i>
         <h2 id="numberOfItemsText">You have 5 items to read</h2>
     </div>
-    <div id="listItems">
-        <i class="label"></i>
+    <template id="listItem-template">
+    <div class="listItems">
+        <img class="label" src="./assets/label%20green.png">
         <h2 class="titleOfArticle">Title of article</h2>
-        <h4 class="urlToArticle">Url to article</h4>
         <h4 class="timeStamp">4.45 AM</h4>
-        <i class="divider"></i>
+        <img class="divider" src="./assets/divider.png">
     </div>
+    </template>
 </div>
 </body>
 </html>

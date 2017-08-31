@@ -65,13 +65,15 @@ body {
     font-size: 18px;
 }
 
-#listItems{
+.listItems{
     position: static;
 }
 
 
 .label {
     display: inline-block;
+    width: 49px;
+    height: 30px;
     position: relative;
     left: 28px;
     top: 13px;
@@ -103,9 +105,11 @@ body {
 }
 
 .divider {
+    display: block;
     position: relative;
     width: 414px;
     height: 1px;
     left: 0px;
-    top: 15px;
+    top: 27px;
+    margin-bottom: 27px;
 }

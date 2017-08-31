@@ -10,7 +10,21 @@
     "default_popup": "popup.html",
     "default_title": "Read Later"
   },
+  "commands": {
+    "toggle-feature-addItem": {
+      "suggested_key": {
+        "default": "Ctrl+Y",
+        "mac": "Command+Y",
+        "chromeos": "Ctrl+Y",
+        "linux": "Ctrl+Y"
+      },
+      "description": "Toggle feature foo"
+    }
+  },
   "permissions": [
-    "activeTab"
+    "tabs",
+    "activeTab",
+    "<all_urls>",
+    "storage"
   ]
 }

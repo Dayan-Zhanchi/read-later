@@ -83,7 +83,9 @@ body {
 .titleOfArticle {
     display: inline-block;
     position: relative;
+    text-align: center;
     margin: 0px;
+    padding: 0px;
     width: 185px;
     min-height: 25px;
     left: 61px;
@@ -102,6 +104,18 @@ body {
     font-size: 13px;
     vertical-align: middle;
     color: #BDBDBD;
+}
+
+.deleteIcon {
+    display: inline-block;
+    position: relative;
+    width: 1.2em;
+    height: 1.2em;
+    margin: 0px;
+    padding: 0px;
+    vertical-align: middle;
+    left: 55px;
+    top: 25px;
 }
 
 .divider {

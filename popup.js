@@ -1,15 +1,14 @@
 /*
  TODO Add date
- TODO Use firebase to store maybe
  TODO Add thumbnail
  TODO Add settings
  TODO Make bookmark icon clickable to add list items
- TODO Add remove icon to list items
- TODO Add modal to respond to user action when adding the same item
- TODO Fix text dynamically "You have x items to read"
+ TODO Add onclick event for the delete icon in list items
+ TODO Add modals to respond to user action when adding the same item or adding item
+ TODO Fix timestamp
+ TODO Fix onclick event for title of list items
+ TODO Still need to fix so that no two labels can be of the same color consecutively
  */
-
-
 
 // Get the template for list items
 var listItemTemplate = document.getElementById('listItem-template');
@@ -22,10 +21,28 @@ var imagesArray = ['label blue.png', 'label green.png', 'label purple.png', 'lab
 // the first label can be one of the labels in the imagesArray
 var prevRandomNum = 100;
 
+
+// Update number of list items
+function updateNumberOfListItems(){
+    chrome.storage.local.get(null, function(objects) {
+        // Keep track of how many list items there are
+        var count = 0;
+        for (var key in objects) {
+            // skip loop if the property is from prototype
+            if (!objects.hasOwnProperty(key))
+                continue;
+
+            count++;
+        }
+        document.getElementById('numberOfItemsText').innerHTML = 'You have ' + count +
+            ' items to read';
+    });
+}
+
 /**
  * Get the current URL.
  *
- * @param {function(string)} callback - called when the URL of the current tab
+ * @param {function(string, string, string)} callback - called when the URL and title of the current tab
  *   is found.
  */
 function getCurrentTabUrl(callback) {
@@ -35,9 +52,6 @@ function getCurrentTabUrl(callback) {
         active: true,
         currentWindow: true
     };
-
-    // A flag to check if item already exists in the storage
-    var flag = false;
 
     chrome.tabs.query(queryInfo, function(tabs) {
         // chrome.tabs.query invokes the callback with a list of tabs that match the
@@ -55,29 +69,29 @@ function getCurrentTabUrl(callback) {
         var title = tab.title;
 
         // Checking if the item to be added already exists in the storage
-        chrome.storage.local.get(null, function(objects){
+        chrome.storage.local.get(null, function (objects) {
+            // Flag to check if item exists
+            var flag = false;
             // Check to see if items key exist
             // If not exist then storage is empty
-            if(objects.hasOwnProperty('items')) {
-                while(item in objects.items) {
-                    if (item.title === url && item.url === title) {
-                        flag = true;
-                    }
-                }
+            for (key in objects) {
+                if (!objects.hasOwnProperty(key))
+                    continue;
 
-                if(!flag){
-                    callback(title, url, '4.45 AM', true);
+                var obj = objects[key];
+                if (obj.title === title && obj.url === url) {
+                    flag = true;
                 }
-                else{
-                    // This should instead invoke a modal to alert the user
-                    console.log("You can't add the same item");
-                }
+            }
+
+            if(!flag){
+                callback(title, url, '4.45 AM', true, '');
             }
             else{
-                callback(title, url, '4.45 AM', true);
+                // A Modal should appear to inform user
+                console.log('Can\'t add an already existing item to list');
             }
         });
-    });
 
     // Most methods of the Chrome extension APIs are asynchronous. This means that
     // you CANNOT do something like this:
@@ -87,6 +101,7 @@ function getCurrentTabUrl(callback) {
     //   url = tabs[0].url;
     // });
     // alert(url); // Shows "undefined", because chrome.tabs.query is async.
+    });
 }
 
 /**
@@ -95,11 +110,15 @@ function getCurrentTabUrl(callback) {
  * @param {string} title - Title of tab
  * @param {string} url - Url of the tab
  * @param {string} timeStamp - Time the item was added
+ * @param {boolean} toStore - Boolean to store or not to store list item
+ * @param {string} label - Label to load for the list item
  */
-function addItem(title, url, timeStamp, toStore){
+function addItem(title, url, timeStamp, toStore, label){
+    // Get current date since 1 January 1970 00:00:00 UTC in milliseconds
+    var date = Date.now().toString();
     // Clone the list item template so the function doesn't overwrite the original template
     var listItem = listItemTemplate.content.cloneNode(true);
-    var date = Date.now().toString();
+
     /*var thumbNailCb = function(dataUrl){
         if(dataUrl === null || dataUrl === ''){
             var randomNum = Math.floor(Math.random() * (imagesArray.length+1));
@@ -124,53 +143,78 @@ function addItem(title, url, timeStamp, toStore){
         currentRandomNum = Math.floor(Math.random() * (imagesArray.length+1));
     }
     prevRandomNum = currentRandomNum;
-    listItem.querySelector('.label').src = './assets/' + imagesArray[prevRandomNum];
+    var tempLabel = imagesArray[currentRandomNum];
+    // Check whether to load the label from storage or set a new random label
+    if(label !== ''){
+        listItem.querySelector('.label').src = './assets/' + label;
+    }
+    else {
+        listItem.querySelector('.label').src = './assets/' + tempLabel;
+    }
 
     // Set the title of the current tab
     // 117 characters corresponds approximately to 5 rows at most
+    var titleOfArticleNode = listItem.querySelector('.titleOfArticle');
     if(title.length > 117){
-        console.log(listItem.querySelector('.titleOfArticle'));
-        var titleOfArticleNode = listItem.querySelector('.titleOfArticle');
         titleOfArticleNode.innerHTML = title.substring(0,117) + '...';
         titleOfArticleNode.setAttribute('title', title);
-        titleOfArticleNode.setAttribute('onclick', 'location.href = ' + function(){
-            location.href = url;
-        });
     }
     else {
-        console.log(listItem.querySelector('.titleOfArticle'));
-        listItem.querySelector('.titleOfArticle').innerHTML = title;
+        titleOfArticleNode.innerHTML = title;
     }
+    // Make title of list item clickable so it can redirect user to the url
+    titleOfArticleNode.addEventListener('click', function(){
+        console.log('Hello');
+        console.log(url);
+        window.location = url;
+    });
 
     // Set the time of when adding the article
     listItem.querySelector('.timeStamp').innerHTML = timeStamp;
 
-    // Store the list item locally in the computer
+    // Add click event to delete Icon
+    //listItem.querySelector('.linkDeleteIcon').setAttribute('href', url);
+
+    // This conditional statement will only be executed when the user
+    // is adding a new item
+    // Store the new item locally in the computer
     if(toStore){
-        chrome.storage.local.set({'items': {'title': title, 'url': url}}, function() {
+        var dataObj = {};
+        dataObj[date] = {
+            'title': title,
+            'url': url,
+            'label': tempLabel};
+        chrome.storage.local.set(dataObj, function() {
             // Notify that we saved.
+            // Modal should appear in the page action rather than in browser action
             message('Settings saved');
         });
+        updateNumberOfListItems();
     }
 
     // Add the list item to the DOM
     document.getElementById('container').appendChild(listItem);
 }
 
+// Listen for when html content has been loaded to render list items
+document.addEventListener('DOMContentLoaded', function() {
+    // Render all stored list items to the DOM
+    chrome.storage.local.get(null, function(objects){
+        for(var key in objects){
+            // Skip loop if the property is from prototype
+            if(!objects.hasOwnProperty(key))
+                continue;
+
+            var obj = objects[key];
+            addItem(obj.title, obj.url, '4.45 AM', false, obj.label);
+        }
+        updateNumberOfListItems();
+    });
+});
+
 // Listen for command to add reading item
 chrome.commands.onCommand.addListener(function(command) {
     if(command === 'toggle-feature-addItem'){
         getCurrentTabUrl(addItem);
     }
-});
-
-
-document.addEventListener('DOMContentLoaded', function() {
-    chrome.storage.local.get(null, function(objects){
-        if(objects.hasOwnProperty('items')){
-            while(item in objects.items){
-                addItem(item.title, item.url, '4.45 AM', false);
-            }
-        }
-    });
 });

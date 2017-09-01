@@ -1,4 +1,4 @@
-<h1 align="center">Read Later Chrome Extension :orange_book: </h1>
+# Read Later Chrome Extension :orange_book:
 ReadLater is a chrome extension that can store articles, blogs, interesting sites, threads etc for the user to read later. 
 
 <h2 align="center">Screenshot of UI 🍎</h2>

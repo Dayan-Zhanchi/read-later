@@ -3,10 +3,8 @@
  TODO Add thumbnail
  TODO Add settings
  TODO Make bookmark icon clickable to add list items
- TODO Add onclick event for the delete icon in list items
  TODO Add modals to respond to user action when adding the same item or adding item
  TODO Fix timestamp
- TODO Fix onclick event for title of list items
  TODO Still need to fix so that no two labels can be of the same color consecutively
  */
 
@@ -85,7 +83,7 @@ function getCurrentTabUrl(callback) {
             }
 
             if(!flag){
-                callback(title, url, '4.45 AM', true, '');
+                callback(title, url, '4.45 AM', true, '', '');
             }
             else{
                 // A Modal should appear to inform user
@@ -112,12 +110,23 @@ function getCurrentTabUrl(callback) {
  * @param {string} timeStamp - Time the item was added
  * @param {boolean} toStore - Boolean to store or not to store list item
  * @param {string} label - Label to load for the list item
+ * @param {string} key - The ID for the listitem
  */
-function addItem(title, url, timeStamp, toStore, label){
-    // Get current date since 1 January 1970 00:00:00 UTC in milliseconds
-    var date = Date.now().toString();
+function addItem(title, url, timeStamp, toStore, label, key){
+    // The id of the listitem
+    var id;
     // Clone the list item template so the function doesn't overwrite the original template
     var listItem = listItemTemplate.content.cloneNode(true);
+
+    // Check if the id already exists
+    // if not then generate a new id
+    if(key !== ''){
+        id = key;
+    }
+    else{
+        // Get current date since 1 January 1970 00:00:00 UTC in milliseconds
+        id = Date.now().toString();
+    }
 
     /*var thumbNailCb = function(dataUrl){
         if(dataUrl === null || dataUrl === ''){
@@ -132,8 +141,9 @@ function addItem(title, url, timeStamp, toStore, label){
         }
     };*/
 
-    // Set ID to listItem
-    listItem.querySelector('.listItems').setAttribute('id', date);
+    // Set the id of the listitem
+    listItem.querySelector('.listItems').setAttribute('id', id);
+
 
     // Set the thumbnail of current tab
     // Make sure that no labels can be of the same color consecutively
@@ -164,33 +174,43 @@ function addItem(title, url, timeStamp, toStore, label){
     }
     // Make title of list item clickable so it can redirect user to the url
     titleOfArticleNode.addEventListener('click', function(){
-        console.log('Hello');
-        console.log(url);
-        window.location = url;
+        window.open(url,'_blank');
     });
 
     // Set the time of when adding the article
     listItem.querySelector('.timeStamp').innerHTML = timeStamp;
 
-    // Add click event to delete Icon
-    //listItem.querySelector('.linkDeleteIcon').setAttribute('href', url);
 
     // This conditional statement will only be executed when the user
     // is adding a new item
-    // Store the new item locally in the computer
+    // Set the ID of the new listitem
+    // and store the new item locally in the computer to make it persistent
     if(toStore){
+        // Set ID to listItem
+        listItem.querySelector('.listItems').setAttribute('id', id);
         var dataObj = {};
-        dataObj[date] = {
+        dataObj[id] = {
             'title': title,
             'url': url,
             'label': tempLabel};
         chrome.storage.local.set(dataObj, function() {
             // Notify that we saved.
             // Modal should appear in the page action rather than in browser action
-            message('Settings saved');
+            console.log('Settings saved');
         });
         updateNumberOfListItems();
     }
+
+    // Add click event to delete listitem
+    listItem.querySelector('.deleteIcon').addEventListener('click', function(){
+        var listElement = document.getElementById(id);
+        listElement.parentNode.removeChild(listElement);
+        chrome.storage.local.remove(id, function(){
+            // Notify that successfully removed
+            console.log('Deletion successful!');
+            updateNumberOfListItems();
+        });
+    });
 
     // Add the list item to the DOM
     document.getElementById('container').appendChild(listItem);
@@ -206,7 +226,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 continue;
 
             var obj = objects[key];
-            addItem(obj.title, obj.url, '4.45 AM', false, obj.label);
+            addItem(obj.title, obj.url, '4.45 AM', false, obj.label, key);
         }
         updateNumberOfListItems();
     });

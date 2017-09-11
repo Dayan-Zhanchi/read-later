@@ -91,14 +91,14 @@ function getCurrentTabUrl(callback) {
             }
         });
 
-    // Most methods of the Chrome extension APIs are asynchronous. This means that
-    // you CANNOT do something like this:
-    //
-    // var url;
-    // chrome.tabs.query(queryInfo, function(tabs) {
-    //   url = tabs[0].url;
-    // });
-    // alert(url); // Shows "undefined", because chrome.tabs.query is async.
+        // Most methods of the Chrome extension APIs are asynchronous. This means that
+        // you CANNOT do something like this:
+        //
+        // var url;
+        // chrome.tabs.query(queryInfo, function(tabs) {
+        //   url = tabs[0].url;
+        // });
+        // alert(url); // Shows "undefined", because chrome.tabs.query is async.
     });
 }
 
@@ -148,9 +148,9 @@ function addItem(title, url, timeStamp, toStore, label, key){
     // Set the thumbnail of current tab
     // Make sure that no labels can be of the same color consecutively
     //chrome.tabs.captureVisibleTab(thumbNailCb);
-    var currentRandomNum = Math.floor(Math.random() * (imagesArray.length+1));
+    var currentRandomNum = Math.floor(Math.random() * (imagesArray.length));
     while(prevRandomNum === currentRandomNum){
-        currentRandomNum = Math.floor(Math.random() * (imagesArray.length+1));
+        currentRandomNum = Math.floor(Math.random() * (imagesArray.length));
     }
     prevRandomNum = currentRandomNum;
     var tempLabel = imagesArray[currentRandomNum];

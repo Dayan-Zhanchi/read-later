@@ -13,10 +13,10 @@
   "commands": {
     "toggle-feature-addItem": {
       "suggested_key": {
-        "default": "Ctrl+Y",
-        "mac": "Command+Y",
-        "chromeos": "Ctrl+Y",
-        "linux": "Ctrl+Y"
+        "default": "Ctrl+Q",
+        "mac": "Command+Q",
+        "chromeos": "Ctrl+Q",
+        "linux": "Ctrl+Q"
       },
       "description": "Toggle feature addItem"
     }

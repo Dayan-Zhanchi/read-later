@@ -6,6 +6,8 @@
  TODO Add modals to respond to user action when adding the same item or adding item
  TODO Fix timestamp
  TODO Still need to fix so that no two labels can be of the same color consecutively
+ TODO Refactor addItem into loadItem and addNewItem
+ TODO Store the whole listItem element into storage so that don't need to recreate elements whenever we are loading the items
  */
 
 // Get the template for list items

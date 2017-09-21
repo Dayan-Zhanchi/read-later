@@ -4,9 +4,6 @@
  TODO Add settings
  TODO Make bookmark icon clickable to add list items
  TODO Add modals to respond to user action when adding the same item or adding item
- TODO Fix timestamp
- TODO Still need to fix so that no two labels can be of the same color consecutively
- TODO Refactor addItem into loadItem and addNewItem
  TODO Store the whole listItem element into storage so that don't need to recreate elements whenever we are loading the items
  */
 
@@ -134,9 +131,10 @@ function loadItems(title, url, timeStamp, label, key){
     // Set the title of the current tab
     // 117 characters corresponds approximately to 5 rows at most
     var titleOfArticleNode = listItem.querySelector('.titleOfArticle');
+    // Set title with title value to make text tooltip appear when hovering over text
+    titleOfArticleNode.setAttribute('title', title);
     if(title.length > 117){
         titleOfArticleNode.innerHTML = title.substring(0,117) + '...';
-        titleOfArticleNode.setAttribute('title', title);
     }
     else {
         titleOfArticleNode.innerHTML = title;
@@ -201,9 +199,10 @@ function addNewItem(title, url, timeStamp){
         // Set the title of the current tab
         // 117 characters corresponds approximately to 5 rows at most
         var titleOfArticleNode = listItem.querySelector('.titleOfArticle');
+        // Set title with title value to make text tooltip appear when hovering over text
+        titleOfArticleNode.setAttribute('title', title);
         if(title.length > 117){
             titleOfArticleNode.innerHTML = title.substring(0,117) + '...';
-            titleOfArticleNode.setAttribute('title', title);
         }
         else {
             titleOfArticleNode.innerHTML = title;

@@ -27,15 +27,21 @@ body {
     background: linear-gradient(110.89deg, #EC669C 0%, #F2994A 100%);
 }
 
-#hamburgerIcon {
+#trashcanIcon {
     position: absolute;
-    width: 25px;
-    height: 19px;
+    width: 40px;
+    height: 40px;
     left: 28px;
-    top: 30px;
-    background-image: url("./assets/hamburgericon.png");
+    top: 22px;
+    background-image: url("./assets/trashcanicon.png");
     background-position: center;
     background-repeat: no-repeat;
+    border: none;
+    cursor: pointer;
+}
+
+#trashcanIcon:hover {
+    -webkit-filter: grayscale(100%); filter: grayscale(100%);
 }
 
 #title {
@@ -55,6 +61,11 @@ body {
     background-image: url("./assets/bookmarkicon.png");
     background-position: center;
     background-repeat: no-repeat;
+    cursor: pointer;
+}
+
+#bookmarkIcon:hover {
+
 }
 
 #numberOfItemsText {
@@ -92,6 +103,11 @@ body {
     top: 15px;
     font-size: 14px;
     vertical-align: middle;
+    cursor: pointer;
+}
+
+.titleOfArticle:hover{
+    text-decoration: underline;
 }
 
 .timeStamp {
@@ -116,6 +132,7 @@ body {
     vertical-align: middle;
     left: 55px;
     top: 25px;
+    cursor: pointer;
 }
 
 .divider {

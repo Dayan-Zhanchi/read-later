@@ -1,7 +1,6 @@
 /*
  TODO Add date
  TODO Add thumbnail
- TODO Add settings
  TODO Make bookmark icon clickable to add list items
  TODO Add modals to respond to user action when adding the same item or adding item
  TODO Store the whole listItem element into storage so that don't need to recreate elements whenever we are loading the items
@@ -97,13 +96,13 @@ function getCurrentTabUrl(callback) {
 }
 
 /**
- * Add reading items to listItem
+ * Add reading items to list Item
  *
  * @param {string} title - Title of tab
  * @param {string} url - Url of the tab
  * @param {string} timeStamp - Time the item was added
  * @param {string} label - Label to load for the list item
- * @param {string} key - The ID for the listitem
+ * @param {string} key - The ID for the list item
  */
 function loadItems(title, url, timeStamp, label, key){
     // Clone the list item template so the function doesn't overwrite the original template
@@ -122,10 +121,10 @@ function loadItems(title, url, timeStamp, label, key){
         }
     };*/
 
-    // Set the id of the listitem
+    // Set the id of the list item
     listItem.querySelector('.listItems').setAttribute('id', key);
 
-    // Set the label of the listitem
+    // Set the label of the list item
     listItem.querySelector('.label').src = './assets/' + label;
 
     // Set the title of the current tab
@@ -147,7 +146,7 @@ function loadItems(title, url, timeStamp, label, key){
     // Set the time of when adding the article
     listItem.querySelector('.timeStamp').innerHTML = timeStamp;
 
-    // Add click event to delete listitem
+    // Add click event to delete list item
     listItem.querySelector('.deleteIcon').addEventListener('click', function(){
         var listElement = document.getElementById(key);
         listElement.parentNode.removeChild(listElement);
@@ -163,7 +162,7 @@ function loadItems(title, url, timeStamp, label, key){
 }
 
 /**
- * Add reading items to listItem
+ * Add reading items to list Item
  *
  * @param {string} title - Title of tab
  * @param {string} url - Url of the tab
@@ -186,10 +185,10 @@ function addNewItem(title, url, timeStamp){
         // Get current date since 1 January 1970 00:00:00 UTC in milliseconds
         var id = Date.now().toString();
 
-        // Set ID of the listitem
+        // Set ID of the list item
         listItem.querySelector('.listItems').setAttribute('id', id);
 
-        //
+        // Generate a new random label that is not the same color as the label of the last list item
         var currentRandomNum = Math.floor(Math.random() * (labelArray.length));
         while(labelArray.indexOf(lastItemLabel) === currentRandomNum){
             currentRandomNum = Math.floor(Math.random() * (labelArray.length));
@@ -215,7 +214,7 @@ function addNewItem(title, url, timeStamp){
         // Set the time of when adding the article
         listItem.querySelector('.timeStamp').innerHTML = timeStamp;
 
-        // Set the ID of the new listitem
+        // Set the ID of the new list item
         // and store the new item locally in the computer to make it persistent
         var dataObj = {};
         dataObj[id] = {
@@ -229,7 +228,7 @@ function addNewItem(title, url, timeStamp){
             console.log('Settings saved');
         });
 
-        // Add click event to delete listitem
+        // Add click event to delete list item
         listItem.querySelector('.deleteIcon').addEventListener('click', function(){
             var listElement = document.getElementById(id);
             listElement.parentNode.removeChild(listElement);

@@ -13,12 +13,20 @@
   "commands": {
     "toggle-feature-addItem": {
       "suggested_key": {
-        "default": "Ctrl+Q",
-        "mac": "Command+Q",
-        "chromeos": "Ctrl+Q",
-        "linux": "Ctrl+Q"
+        "default": "Ctrl+Shift+3",
+        "mac": "Ctrl+Shift+3",
+        "chromeos": "Ctrl+Shift+3",
+        "linux": "Ctrl+Shift+3"
       },
       "description": "Toggle feature addItem"
+    },
+    "_execute_browser_action": {
+      "suggested_key": {
+        "windows": "Ctrl+Shift+2",
+        "mac": "Command+Shift+2",
+        "chromeos": "Ctrl+Shift+2",
+        "linux": "Ctrl+Shift+2"
+      }
     }
   },
   "permissions": [

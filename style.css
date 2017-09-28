@@ -37,11 +37,12 @@ body {
     background-position: center;
     background-repeat: no-repeat;
     border: none;
-    cursor: pointer;
 }
 
-#trashcanIcon:hover {
-    -webkit-filter: grayscale(100%); filter: grayscale(100%);
+#trashcanIcon:hover,
+#trashcanIcon:focus {
+    filter: brightness(95%);
+    cursor: pointer;
 }
 
 #title {
@@ -61,11 +62,12 @@ body {
     background-image: url("./assets/bookmarkicon.png");
     background-position: center;
     background-repeat: no-repeat;
-    cursor: pointer;
 }
 
-#bookmarkIcon:hover {
-
+#bookmarkIcon:hover,
+#bookmarkIcon:focus {
+    filter: brightness(95%);
+    cursor: pointer;
 }
 
 #numberOfItemsText {
@@ -132,6 +134,11 @@ body {
     vertical-align: middle;
     left: 55px;
     top: 25px;
+}
+
+.deleteIcon:hover,
+.deleteIcon:focus {
+    filter: brightness(70%);
     cursor: pointer;
 }
 
@@ -189,4 +196,3 @@ body {
     text-decoration: none;
     cursor: pointer;
 }
-

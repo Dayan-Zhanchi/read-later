@@ -12,7 +12,7 @@ deleteAllBtn.onclick = function() {
 
 addItemBtn.onclick = function() {
     addItemModal.style.display = 'block';
-}
+};
 
 closeDeleteModalBtn.onclick = function() {
   deleteAllModal.style.display = 'none';

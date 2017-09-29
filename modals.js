@@ -1,5 +1,7 @@
 var deleteAllModal = document.getElementById('deleteAllModal');
 var deleteAllBtn = document.getElementById('trashcanIcon');
+var deleteCancelBtn = document.getElementById('cancel-btn');
+var deleteOkBtn = document.getElementById('ok-btn');
 var closeDeleteModalBtn = document.getElementById('closeDeleteModal');
 
 var addItemModal = document.getElementById('addItemModal');
@@ -10,12 +12,22 @@ deleteAllBtn.onclick = function() {
     deleteAllModal.style.display = 'block';
 };
 
-addItemBtn.onclick = function() {
-    addItemModal.style.display = 'block';
+deleteCancelBtn.onclick = function() {
+    deleteAllModal.style.display = 'none';
+};
+
+deleteOkBtn.onclick = function() {
+    chrome.storage.local.clear(function() {
+        deleteAllModal.style.display = 'none';
+    });
 };
 
 closeDeleteModalBtn.onclick = function() {
-  deleteAllModal.style.display = 'none';
+    deleteAllModal.style.display = 'none';
+};
+
+addItemBtn.onclick = function() {
+    addItemModal.style.display = 'block';
 };
 
 closeAddItemBtn.onclick = function() {

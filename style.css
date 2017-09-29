@@ -41,7 +41,7 @@ body {
 
 #trashcanIcon:hover,
 #trashcanIcon:focus {
-    filter: brightness(95%);
+    filter: brightness(90%);
     cursor: pointer;
 }
 
@@ -66,7 +66,7 @@ body {
 
 #bookmarkIcon:hover,
 #bookmarkIcon:focus {
-    filter: brightness(95%);
+    filter: brightness(90%);
     cursor: pointer;
 }
 
@@ -155,7 +155,7 @@ body {
 .modal {
     display: none; /* Hidden by default */
     position: fixed; /* Stay in place */
-    z-index: 1; /* Sit on top */
+    z-index: 1000; /* Sit on top */
     padding-top: 100px; /* Location of the box */
     left: 0;
     top: 0;
@@ -163,36 +163,114 @@ body {
     height: 100%; /* Full height */
     overflow: auto; /* Enable scroll if needed */
     background-color: rgb(0,0,0); /* Fallback color */
-    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    background-color: rgba(0, 0, 4, 0.5); /* Black w/ opacity */
 }
 
 .modalContent {
-    background-color: #fefefe;
+    background-color: #1B242B;
     margin: auto;
     margin-top: 30%;
-    padding: 20px;
-    border: 1px solid #888;
-    width: 80%;
+    height: 118px;
+    width: 87%;
+}
+
+#warningIcon {
+    display: inline-block;
+    position: relative;
+    left: 20px;
+    top: 26px;
+    width: 47px;
+    height: 47px;
+    border: none;
 }
 
 #deleteAllModalText {
-    color: #000000;
+    position: relative;
+    left: 100px;
+    top: -36px;
+}
+
+#cancel-btn {
+    position: relative;
+    width: 77px;
+    height: 33px;
+    left: 155px;
+    top: -33px;
+    font-family: inherit;
+    font-weight: inherit;
+    color: inherit;
+    background-color: #828282;
+    border: none;
+    border-radius: 30px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+#cancel-btn:hover {
+    filter: brightness(90%);
+    cursor: pointer;
+}
+
+#cancel-btn:active {
+    filter: brightness(70%);
+    cursor: pointer;
+}
+
+#cancel-btn:focus {
+    outline: 0;
+}
+
+#ok-btn {
+    position: relative;
+    width: 77px;
+    height: 33px;
+    left: 165px;
+    top: -33px;
+    font-family: inherit;
+    font-weight: inherit;
+    color: inherit;
+    background-color: #EB5757;
+    border: none;
+    border-radius: 30px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+#ok-btn:hover {
+    filter: brightness(90%);
+    cursor: pointer;
+}
+
+#ok-btn:active {
+    filter: brightness(70%);
+    cursor: pointer;
+}
+
+#ok-btn:focus {
+    outline: 0;
 }
 
 #addItemModalText{
-    color: #000000;
+
 }
 
 .close {
-    color: #aaaaaa;
-    float: right;
+    position: relative;
+    left: 280px;
+    top: -18px;
+    color: #EB5757;
     font-size: 28px;
     font-weight: bold;
 }
 
-.close:hover,
+.close:hover {
+    filter: brightness(90%);
+    text-decoration: none;
+    cursor: pointer;
+}
+
 .close:focus {
-    color: #000;
+    filter: brightness(70%);
     text-decoration: none;
     cursor: pointer;
 }

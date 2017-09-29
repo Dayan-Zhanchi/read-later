@@ -158,7 +158,7 @@ function loadItems(title, url, timeStamp, label, key){
     });
 
     // Add the list item to the DOM
-    document.getElementById('container').appendChild(listItem);
+    document.getElementById('list-container').appendChild(listItem);
 }
 
 /**
@@ -240,7 +240,7 @@ function addNewItem(title, url, timeStamp){
         });
 
         // Add the list item to the DOM
-        document.getElementById('container').appendChild(listItem);
+        document.getElementById('list-container').appendChild(listItem);
     });
 }
 

@@ -1,3 +1,6 @@
+var listItemContainer = document.getElementById('list-container');
+var numberOfItemsText = document.getElementById('numberOfItemsText');
+
 var deleteAllModal = document.getElementById('deleteAllModal');
 var deleteAllBtn = document.getElementById('trashcanIcon');
 var deleteCancelBtn = document.getElementById('cancel-btn');
@@ -18,6 +21,9 @@ deleteCancelBtn.onclick = function() {
 
 deleteOkBtn.onclick = function() {
     chrome.storage.local.clear(function() {
+        listItemContainer.innerHTML = '';
+        numberOfItemsText.innerHTML = 'You have ' + 0 +
+            ' items to read';
         deleteAllModal.style.display = 'none';
     });
 };

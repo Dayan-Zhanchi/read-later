@@ -1,17 +1,25 @@
 var listItemContainer = document.getElementById('list-container');
 var numberOfItemsText = document.getElementById('numberOfItemsText');
 
+// Retrieve all the necessary elements in the delete modal
 var deleteAllModal = document.getElementById('deleteAllModal');
-var deleteAllBtn = document.getElementById('trashcanIcon');
-var deleteCancelBtn = document.getElementById('cancel-btn');
+var openDeleteAllBtn = document.getElementById('trashcanIcon');
+var deleteCancelBtn = document.getElementById('delete-cancel-btn');
 var deleteOkBtn = document.getElementById('ok-btn');
 var closeDeleteModalBtn = document.getElementById('closeDeleteModal');
 
+// Retrieve all the necessary elements in the add modal
 var addItemModal = document.getElementById('addItemModal');
-var addItemBtn = document.getElementById('bookmarkIcon');
+var openAddItemBtn = document.getElementById('bookmarkIcon');
+var addCancelBtn = document.getElementById('add-cancel-btn');
+var addItemBtn = document.getElementById('add-btn');
 var closeAddItemBtn = document.getElementById('closeAddItemModal');
 
-deleteAllBtn.onclick = function() {
+// Set the add button in add item modal to disabled and only activate when all the fields have been filled
+addItemBtn.disabled = true;
+
+
+openDeleteAllBtn.onclick = function() {
     deleteAllModal.style.display = 'block';
 };
 
@@ -32,9 +40,15 @@ closeDeleteModalBtn.onclick = function() {
     deleteAllModal.style.display = 'none';
 };
 
-addItemBtn.onclick = function() {
+openAddItemBtn.onclick = function() {
     addItemModal.style.display = 'block';
 };
+
+addCancelBtn.onclick = function() {
+    addItemModal.style.display = 'none';
+};
+
+
 
 closeAddItemBtn.onclick = function() {
     addItemModal.style.display = 'none';

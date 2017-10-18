@@ -1,7 +1,6 @@
 /*
  TODO Add date
  TODO Add thumbnail
- TODO Make bookmark icon clickable to add list items
  TODO Add modals to respond to user action when adding the same item or adding item
  TODO Store the whole listItem element into storage so that don't need to recreate elements whenever we are loading the items
  */

@@ -42,7 +42,7 @@
             <img id="warningIcon" src="./assets/Exclude.png"/>
             <span id="closeDeleteModal" class="close">&times;</span>
             <p id="deleteAllModalText">Do you want to delete all items?</p>
-            <button id="cancel-btn">Cancel</button>
+            <button id="delete-cancel-btn" class="cancel-btn">Cancel</button>
             <button id="ok-btn">Ok</button>
         </div>
     </div>
@@ -50,10 +50,26 @@
     <div id="addItemModal" class="modal">
         <div id="addItemModalContent" class="modalContent">
             <span id="closeAddItemModal" class="close">&times;</span>
-            <p id="addItemModalText">Add item modal..</p>
+            <div>
+                <form action="">
+                    <div id="title-form">
+                    <label for="ititle">Title</label>
+                    <input type="text" id="ititle" name="item-title" placeholder="Enter Title here..">
+                    </div>
+
+                    <div id="url-form">
+                    <label for="url">URL</label>
+                    <input type="text" id="url" name="uniform-resource-locator" placeholder="Enter URL here..">
+                    </div>
+
+                    <input id="add-btn" type="submit" value="Add">
+                    <button id="add-cancel-btn" class="cancel-btn">Cancel</button>
+                </form>
+            </div>
         </div>
     </div>
 
+    <!-- Placeholder for list items-->
     <div id="list-container">
 
     </div>

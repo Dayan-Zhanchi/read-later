@@ -289,10 +289,10 @@ input[type=text] {
 }
 
 input[type=text]:focus {
-    background-color: #737F88;
+    background-color: #79858E;
 }
 
-input[type=submit] {
+#add-btn {
     position: relative;
     width: 77px;
     height: 33px;
@@ -310,11 +310,11 @@ input[type=submit] {
     outline: none;
 }
 
-input[type=submit]:hover {
+#add-btn:hover {
     background-color: #228B42;
 }
 
-input[type=submit]:focus {
+#add-btn:focus {
     background-color: #237A3D;
 }
 

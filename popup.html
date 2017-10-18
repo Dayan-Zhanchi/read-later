@@ -6,7 +6,7 @@
  -->
 <html>
 <head>
-    <title>Getting Started Extension's Popup</title>
+    <title>Read Later</title>
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="style.css">
     <!--
@@ -51,20 +51,18 @@
         <div id="addItemModalContent" class="modalContent">
             <span id="closeAddItemModal" class="close">&times;</span>
             <div>
-                <form action="">
-                    <div id="title-form">
-                    <label for="ititle">Title</label>
-                    <input type="text" id="ititle" name="item-title" placeholder="Enter Title here..">
-                    </div>
+                <div id="title-form">
+                <label for="ititle">Title</label>
+                <input type="text" id="ititle" name="item-title" placeholder="Enter Title here.." autocomplete="off" required>
+                </div>
 
-                    <div id="url-form">
-                    <label for="url">URL</label>
-                    <input type="text" id="url" name="uniform-resource-locator" placeholder="Enter URL here..">
-                    </div>
+                <div id="url-form">
+                <label for="url">URL</label>
+                <input type="text" id="url" name="uniform-resource-locator" placeholder="Enter URL here.." autocomplete="off" required>
+                </div>
 
-                    <input id="add-btn" type="submit" value="Add">
-                    <button id="add-cancel-btn" class="cancel-btn">Cancel</button>
-                </form>
+                <button id="add-btn">Add</button>
+                <button id="add-cancel-btn" class="cancel-btn">Cancel</button>
             </div>
         </div>
     </div>

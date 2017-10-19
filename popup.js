@@ -1,7 +1,10 @@
 /*
 TODO Refactor code
-TODO Comment code
 TODO Maybe change color palette, too much white and navbar is too bright
+ */
+
+/*
+ * This file handles the logic for adding, removing and rendering list items correctly
  */
 
 // Get the template for list items
@@ -108,19 +111,6 @@ function loadItems(title, url, timeStamp, label, key){
     // Clone the list item template so the function doesn't overwrite the original template
     var listItem = listItemTemplate.content.cloneNode(true);
 
-    /*var thumbNailCb = function(dataUrl){
-        if(dataUrl === null || dataUrl === ''){
-            var randomNum = Math.floor(Math.random() * (labelArray.length+1));
-            listItem.querySelector('.label').src = './assets/' + labelArray[randomNum];
-        }
-        else {
-            console.log(listItem.querySelector('.label'));
-            var randomNum = Math.floor(Math.random() * (labelArray.length+1));
-            listItem.querySelector('.label').src = './assets/' + labelArray[randomNum];
-            //listItem.querySelector('.label').src = dataUrl;
-        }
-    };*/
-
     // Set the id of the list item
     listItem.querySelector('.listItems').setAttribute('id', key);
 
@@ -201,7 +191,7 @@ function addNewItem(title, url, timeStamp){
             // Generate a new random label that is not the same color as the label of the last list item
             var currentRandomNum = Math.floor(Math.random() * (labelArray.length));
             // Check if last item label really was a label and not a thumbnail
-            if(lastItemLabel.indexOf('label')){
+            if(lastItemLabel.indexOf('label') >= 0){
                 while(labelArray.indexOf(lastItemLabel) === currentRandomNum){
                     currentRandomNum = Math.floor(Math.random() * (labelArray.length));
                 }

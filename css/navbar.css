@@ -1,0 +1,57 @@
+#navbar {
+    position: relative;
+    width: 414px;
+    height: 140px;
+    background: linear-gradient(110.89deg, #EC669C 0%, #F2994A 100%);
+}
+
+#trashcanIcon {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    left: 28px;
+    top: 22px;
+    background-image: url("../assets/trashcanicon.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    border: none;
+}
+
+#trashcanIcon:hover,
+#trashcanIcon:focus {
+    filter: brightness(90%);
+    cursor: pointer;
+}
+
+#title {
+    position: absolute;
+    margin: 0px;
+    font-size: 24px;
+    left: 142px;
+    top: 25px;
+}
+
+#bookmarkIcon {
+    position: absolute;
+    width: 30px;
+    height: 46.36px;
+    left: 358.5px;
+    top: 20px;
+    background-image: url("../assets/bookmarkicon.png");
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+#bookmarkIcon:hover,
+#bookmarkIcon:focus {
+    filter: brightness(90%);
+    cursor: pointer;
+}
+
+#numberOfItemsText {
+    position: absolute;
+    margin: 0px;
+    left: 114px;
+    top: 88px;
+    font-size: 18px;
+}

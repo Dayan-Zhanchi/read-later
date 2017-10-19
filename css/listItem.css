@@ -1,0 +1,73 @@
+.listItems{
+    position: static;
+}
+
+
+.label {
+    display: inline-block;
+    width: 80px;
+    height: 60px;
+    position: relative;
+    left: 20px;
+    top: 13px;
+    vertical-align: middle;
+}
+
+.titleOfArticle {
+    display: inline-block;
+    position: relative;
+    text-align: center;
+    margin: 0px;
+    padding: 0px;
+    width: 185px;
+    min-height: 25px;
+    left: 39px;
+    top: 15px;
+    font-size: 14px;
+    vertical-align: middle;
+    cursor: pointer;
+}
+
+.titleOfArticle:hover{
+    text-decoration: underline;
+}
+
+.timeStamp {
+    display: inline-block;
+    position: relative;
+    margin: 0px;
+    height: 46px;
+    left: 53px;
+    top: 12px;
+    font-size: 13px;
+    vertical-align: middle;
+    color: #BDBDBD;
+}
+
+.deleteIcon {
+    display: inline-block;
+    position: relative;
+    width: 1.2em;
+    height: 1.2em;
+    margin: 0px;
+    padding: 0px;
+    vertical-align: middle;
+    left: 5px;
+    top: 27px;
+}
+
+.deleteIcon:hover,
+.deleteIcon:focus {
+    filter: brightness(70%);
+    cursor: pointer;
+}
+
+.divider {
+    display: block;
+    position: relative;
+    width: 414px;
+    height: 1px;
+    left: 0px;
+    top: 27px;
+    margin-bottom: 27px;
+}

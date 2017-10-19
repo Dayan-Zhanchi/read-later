@@ -1,4 +1,10 @@
+/*
+ * This file handles the logic for modals, that is both the delete all modal and the add item list modal
+ */
+
+// Retrieve the list container, containing all the list items
 var listItemContainer = document.getElementById('list-container');
+// Retrieve the text that displays the number of items
 var numberOfItemsText = document.getElementById('numberOfItemsText');
 
 // Retrieve all the necessary elements in the delete modal
@@ -14,11 +20,12 @@ var openAddItemBtn = document.getElementById('bookmarkIcon');
 var addCancelBtn = document.getElementById('add-cancel-btn');
 var addItemBtn = document.getElementById('add-btn');
 var closeAddItemBtn = document.getElementById('closeAddItemModal');
+// Retrieve the input forms, title and url
 var inputTitle = document.getElementById('ititle');
 var inputURL = document.getElementById('url');
 
-// Set the add button in add item modal to disabled and only activate when all the fields have been filled
 
+// All click events for the delete modal
 
 openDeleteAllBtn.onclick = function() {
     deleteAllModal.style.display = 'block';
@@ -41,6 +48,9 @@ closeDeleteModalBtn.onclick = function() {
     deleteAllModal.style.display = 'none';
 };
 
+/*
+ * All the click event for the add item modal
+ */
 openAddItemBtn.onclick = function() {
     addItemModal.style.display = 'block';
 };
@@ -67,16 +77,14 @@ window.onclick = function(event) {
     }
 };
 
-if(inputTitle.value.length !==0 && inputURL.value.length !==0){
-    addItemBtn.disabled = false;
-}
-
 // Retrieve the input and create a new list item
 addItemBtn.onclick = function() {
     var date = new Date();
     var dateTime = date.getDate() + '/' + (date.getMonth()+1) + '/' + date.getFullYear();
+    // Create a naive regex pattern for verification of valid urls
     var urlPattern = new RegExp('^(http:\\/\\/www\\.|https:\\/\\/www\\.|http:\\/\\/|https:\\/\\/)?[a-z0-9]+([\\-\\.]{1}[a-z0-9]+)*\\.[a-z]{2,5}(:[0-9]{1,5})?(\\/.*)?$');
 
+    // Check for either non-white space characters and valid url
     if(/\S/.test(inputTitle.value) && urlPattern.test(inputURL.value)){
         var title = document.querySelector('#ititle').value;
         var url = document.querySelector('#url').value;
@@ -92,11 +100,13 @@ addItemBtn.onclick = function() {
                     continue;
 
                 var obj = objects[key];
+                // Flag set to true if the item already exists
                 if (obj.url === url) {
                     flag = true;
                 }
             }
 
+            // If the item does not exist, then add it to the list
             if(!flag){
                 addNewItem(title, url, dateTime);
                 inputTitle.value = '';

@@ -1,0 +1,54 @@
+#warningIcon {
+    display: inline-block;
+    position: relative;
+    left: 20px;
+    top: 26px;
+    width: 47px;
+    height: 47px;
+    border: none;
+}
+
+#deleteAllModalText {
+    position: relative;
+    left: 100px;
+    top: -36px;
+}
+
+#ok-btn {
+    position: relative;
+    width: 77px;
+    height: 33px;
+    left: 165px;
+    top: -33px;
+    font-family: inherit;
+    font-weight: inherit;
+    color: inherit;
+    background-color: #EB5757;
+    border: none;
+    border-radius: 30px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+#ok-btn:hover {
+    filter: brightness(90%);
+    cursor: pointer;
+}
+
+#ok-btn:active {
+    filter: brightness(70%);
+    cursor: pointer;
+}
+
+#ok-btn:focus {
+    outline: 0;
+}
+
+#closeDeleteModal {
+    position: relative;
+    left: 280px;
+    top: -18px;
+    color: #EB5757;
+    font-size: 28px;
+    font-weight: bold;
+}

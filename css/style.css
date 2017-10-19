@@ -1,0 +1,21 @@
+html {
+    min-width: 414px;
+    min-height: 736px;
+}
+body {
+    min-width: 414px;
+    min-height: 736px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 100%;
+    font-weight: bold;
+    color: #FFFFFF;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background-color: #2C304F;
+    margin: 0px;
+}
+
+#container {
+    height: 100%;
+    width: 100%;
+}

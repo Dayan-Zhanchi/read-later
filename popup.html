@@ -8,7 +8,12 @@
 <head>
     <title>Read Later</title>
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="css/navbar.css">
+    <link rel="stylesheet" type="text/css" href="css/listItem.css">
+    <link rel="stylesheet" type="text/css" href="css/modal.css">
+    <link rel="stylesheet" type="text/css" href="css/deleteModal.css">
+    <link rel="stylesheet" type="text/css" href="css/additemModal.css">
     <!--
       - JavaScript and HTML must be in separate files: see our Content Security
       - Policy documentation[1] for details and explanation.
@@ -20,6 +25,7 @@
 </head>
 <body>
 <div id="container">
+    <!-- The navbar for the list-->
     <div id="navbar">
         <i id="trashcanIcon"></i>
         <h1 id="title">Reading List</h1>
@@ -27,6 +33,7 @@
         <h2 id="numberOfItemsText">You have 0 items to read</h2>
     </div>
 
+    <!-- The template for list items-->
     <template id="listItem-template">
     <div class="listItems">
         <img class="label" src="./assets/label%20green.png" alt="./assets/label%20blue.png">
@@ -37,6 +44,7 @@
     </div>
     </template>
 
+    <!-- The delete all modal-->
     <div id="deleteAllModal" class="modal">
         <div id="deleteAllModalContent" class="modalContent">
             <img id="warningIcon" src="./assets/Exclude.png"/>
@@ -47,6 +55,7 @@
         </div>
     </div>
 
+    <!-- The add item modal-->
     <div id="addItemModal" class="modal">
         <div id="addItemModalContent" class="modalContent">
             <span id="closeAddItemModal" class="close">&times;</span>

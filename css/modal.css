@@ -1,0 +1,64 @@
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1000; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0, 0, 4, 0.5); /* Black w/ opacity */
+}
+
+.modalContent {
+    background-color: #1B242B;
+    margin: auto;
+    margin-top: 30%;
+    height: 118px;
+    width: 87%;
+}
+
+.cancel-btn {
+    position: relative;
+    width: 77px;
+    height: 33px;
+    left: 155px;
+    top: -33px;
+    font-family: inherit;
+    font-weight: inherit;
+    color: inherit;
+    background-color: #828282;
+    border: none;
+    border-radius: 30px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.cancel-btn:hover {
+    filter: brightness(90%);
+    cursor: pointer;
+}
+
+.cancel-btn:active {
+    filter: brightness(70%);
+    cursor: pointer;
+}
+
+.cancel-btn:focus {
+    outline: 0;
+}
+
+
+.close:hover {
+    filter: brightness(90%);
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.close:focus {
+    filter: brightness(70%);
+    text-decoration: none;
+    cursor: pointer;
+}

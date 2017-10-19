@@ -1,0 +1,82 @@
+
+#addItemModalContent {
+    height: 240px;
+    margin-top: 20%;
+}
+
+input[type=text] {
+    width: 100%;
+    padding: 6px 20px;
+    margin: 8px 0;
+    display: block;
+    border: 1px solid #636E77;
+    border-radius: 4px;
+    box-sizing: border-box;
+    background-color: #636E77;
+    outline: none;
+}
+
+input[type=text]:focus {
+    background-color: #79858E;
+}
+
+#add-btn {
+    position: relative;
+    width: 77px;
+    height: 33px;
+    top: -20px;
+    left: 265px;
+    background-color: #219653;
+    font-family: inherit;
+    font-weight: inherit;
+    color: inherit;
+    border: none;
+    border-radius: 30px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    cursor: pointer;
+    outline: none;
+}
+
+#add-btn:hover {
+    background-color: #228B42;
+}
+
+#add-btn:focus {
+    background-color: #237A3D;
+}
+
+#add-cancel-btn {
+    position: relative;
+    width: 77px;
+    height: 33px;
+    top: -20px;
+    left: 94px;
+}
+
+::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+    color: #000000;
+    font-family: inherit;
+    font-weight: inherit;
+}
+
+#closeAddItemModal {
+    position: relative;
+    left: 330px;
+    top: 2px;
+    color: #EB5757;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+#title-form {
+    position: relative;
+    margin: 20px;
+    top: -30px;
+}
+
+#url-form {
+    position: relative;
+    margin: 20px;
+    top: -30px;
+}

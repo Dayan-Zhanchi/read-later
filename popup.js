@@ -1,8 +1,7 @@
 /*
- TODO Add date
- TODO Add thumbnail
- TODO Add modals to respond to user action when adding the same item or adding item
- TODO Store the whole listItem element into storage so that don't need to recreate elements whenever we are loading the items
+TODO Refactor code
+TODO Comment code
+TODO Maybe change color palette, too much white and navbar is too bright
  */
 
 // Get the template for list items
@@ -69,13 +68,15 @@ function getCurrentTabUrl(callback) {
                     continue;
 
                 var obj = objects[key];
-                if (obj.title === title && obj.url === url) {
+                if (obj.url === url) {
                     flag = true;
                 }
             }
 
             if(!flag){
-                callback(title, url, '4.45 AM');
+                var date = new Date();
+                var dateTime = date.getDate() + '/' + (date.getMonth()+1) + '/' + date.getFullYear();
+                callback(title, url, dateTime);
             }
             else{
                 // A Modal should appear to inform user
@@ -124,7 +125,12 @@ function loadItems(title, url, timeStamp, label, key){
     listItem.querySelector('.listItems').setAttribute('id', key);
 
     // Set the label of the list item
-    listItem.querySelector('.label').src = './assets/' + label;
+    if(label.indexOf('label') >= 0) {
+        listItem.querySelector('.label').src = './assets/' + label;
+    }
+    else{
+        listItem.querySelector('.label').src = label;
+    }
 
     // Set the title of the current tab
     // 117 characters corresponds approximately to 5 rows at most
@@ -169,9 +175,19 @@ function loadItems(title, url, timeStamp, label, key){
  */
 function addNewItem(title, url, timeStamp){
     chrome.storage.local.get(null, function(objects){
+        chrome.tabs.captureVisibleTab(function(dataUrl) {
         // Clone the list item template so the function doesn't overwrite the original template
         var listItem = listItemTemplate.content.cloneNode(true);
 
+        // Get current date since 1 January 1970 00:00:00 UTC in milliseconds
+        var id = Date.now().toString();
+
+        // Set ID of the list item
+        listItem.querySelector('.listItems').setAttribute('id', id);
+
+        // The label to store it into the data object
+        var label = dataUrl;
+        // The last item label in the list
         var lastItemLabel;
         // Get the label of the last list item
         for(var key in objects){
@@ -180,19 +196,19 @@ function addNewItem(title, url, timeStamp){
 
             lastItemLabel = objects[key].label;
         }
-
-        // Get current date since 1 January 1970 00:00:00 UTC in milliseconds
-        var id = Date.now().toString();
-
-        // Set ID of the list item
-        listItem.querySelector('.listItems').setAttribute('id', id);
-
-        // Generate a new random label that is not the same color as the label of the last list item
-        var currentRandomNum = Math.floor(Math.random() * (labelArray.length));
-        while(labelArray.indexOf(lastItemLabel) === currentRandomNum){
-            currentRandomNum = Math.floor(Math.random() * (labelArray.length));
-        }
-        listItem.querySelector('.label').src = './assets/' + labelArray[currentRandomNum];
+        listItem.querySelector('.label').src = dataUrl;
+        listItem.querySelector('.label').onerror = function() {
+            // Generate a new random label that is not the same color as the label of the last list item
+            var currentRandomNum = Math.floor(Math.random() * (labelArray.length));
+            // Check if last item label really was a label and not a thumbnail
+            if(lastItemLabel.indexOf('label')){
+                while(labelArray.indexOf(lastItemLabel) === currentRandomNum){
+                    currentRandomNum = Math.floor(Math.random() * (labelArray.length));
+                }
+            }
+            listItem.querySelector('.label').src = './assets/' + labelArray[currentRandomNum];
+            label = labelArray[currentRandomNum];
+        };
 
         // Set the title of the current tab
         // 117 characters corresponds approximately to 5 rows at most
@@ -219,7 +235,8 @@ function addNewItem(title, url, timeStamp){
         dataObj[id] = {
             'title': title,
             'url': url,
-            'label': labelArray[currentRandomNum]};
+            'date': timeStamp,
+            'label': label};
         chrome.storage.local.set(dataObj, function() {
             updateNumberOfListItems();
             // Notify that we saved.
@@ -240,6 +257,7 @@ function addNewItem(title, url, timeStamp){
 
         // Add the list item to the DOM
         document.getElementById('list-container').appendChild(listItem);
+        });
     });
 }
 
@@ -253,7 +271,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 continue;
 
             var obj = objects[key];
-            loadItems(obj.title, obj.url, '4.45 AM', obj.label, key);
+            loadItems(obj.title, obj.url, obj.date, obj.label, key);
         }
         updateNumberOfListItems();
     });

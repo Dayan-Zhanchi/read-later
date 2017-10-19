@@ -50,6 +50,8 @@ addCancelBtn.onclick = function() {
 };
 
 closeAddItemBtn.onclick = function() {
+    inputTitle.value = '';
+    inputURL.value = '';
     addItemModal.style.display = 'none';
 };
 
@@ -59,6 +61,8 @@ window.onclick = function(event) {
         deleteAllModal.style.display = 'none';
     }
     else if(event.target === addItemModal) {
+        inputTitle.value = '';
+        inputURL.value = '';
         addItemModal.style.display = 'none';
     }
 };
@@ -69,14 +73,11 @@ if(inputTitle.value.length !==0 && inputURL.value.length !==0){
 
 // Retrieve the input and create a new list item
 addItemBtn.onclick = function() {
-    /*var urlPattern = new RegExp('^(https?:\/\/)?'+ // protocol
-        '((([a-z\d]([a-z\d-]*[a-z\d])*)\.)+[a-z]{2,}|'+ // domain name
-        '((\d{1,3}\.){3}\d{1,3}))'+ // OR ip (v4) address
-        '(\:\d+)?(\/[-a-z\d%_.~+]*)*'+ // port and path
-        '(\?[;&a-z\d%_.~+=-]*)?'+ // query string
-        '(\#[-a-z\d_]*)?$' + 'i'); // fragment locater*/
+    var date = new Date();
+    var dateTime = date.getDate() + '/' + (date.getMonth()+1) + '/' + date.getFullYear();
+    var urlPattern = new RegExp('^(http:\\/\\/www\\.|https:\\/\\/www\\.|http:\\/\\/|https:\\/\\/)?[a-z0-9]+([\\-\\.]{1}[a-z0-9]+)*\\.[a-z]{2,5}(:[0-9]{1,5})?(\\/.*)?$');
 
-    if(/\S/.test(inputTitle.value) && /\S/.test(inputURL.value)){
+    if(/\S/.test(inputTitle.value) && urlPattern.test(inputURL.value)){
         var title = document.querySelector('#ititle').value;
         var url = document.querySelector('#url').value;
 
@@ -91,18 +92,19 @@ addItemBtn.onclick = function() {
                     continue;
 
                 var obj = objects[key];
-                if (obj.title === title && obj.url === url) {
+                if (obj.url === url) {
                     flag = true;
                 }
             }
 
             if(!flag){
-                addNewItem(title, url, '4.45 AM');
+                addNewItem(title, url, dateTime);
                 inputTitle.value = '';
                 inputURL.value = '';
                 addItemModal.style.display = 'none';
             }
             else{
+                addItemBtn.blur();
                 // A Modal should appear to inform user
                 console.log('Can\'t add an already existing item to list');
             }
@@ -112,13 +114,9 @@ addItemBtn.onclick = function() {
         if(!(/\S/.test(inputTitle.value))){
             inputTitle.focus();
         }
-        else if(!(/\S/.test(inputURL.value))){
+        else if(!(/\S/.test(inputURL.value)) || !urlPattern.test(inputURL.value)){
             inputURL.focus();
         }
         addItemBtn.blur();
     }
 };
-
-
-
-

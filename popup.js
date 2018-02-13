@@ -1,6 +1,3 @@
-/*
-TODO Refactor code
- */
 
 // This file handles the logic for adding, removing and rendering list items correctly
 
@@ -77,7 +74,7 @@ function getCurrentTabUrl(callback) {
             if(!flag){
                 var date = new Date();
                 var dateTime = date.getDate() + '/' + (date.getMonth()+1) + '/' + date.getFullYear();
-                callback(title, url, dateTime);
+                callback(title, url, dateTime, true);
             }
             else{
                 // A Modal should appear to inform user
@@ -96,121 +93,90 @@ function getCurrentTabUrl(callback) {
     });
 }
 
+
 /**
- * Add reading items to list Item
+ *
+ * @param labelNode - A NodeList object, representing the first element that matches the specified CSS selector(s)
+ * in this case the image element for displaying the label
+ */
+function setLabelNodeProps(labelNode){
+    labelNode.style.width = '49px';
+    labelNode.style.height = '30px';
+    labelNode.style.marginRight = '31px';
+}
+
+/**
+ *
+ * @param lastItemLabel - The label of the last item from the list container
+ * @returns {string}
+ */
+function generateLabel(lastItemLabel){
+    // Generate a new random label that is not the same color as the label of the last list item
+    var currentRandomNum = Math.floor(Math.random() * (labelArray.length));
+    // Check if last item label really was a label and not a thumbnail
+    if(lastItemLabel.indexOf('label') >= 0){
+        while(labelArray.indexOf(lastItemLabel) === currentRandomNum){
+            currentRandomNum = Math.floor(Math.random() * (labelArray.length));
+        }
+    }
+    return labelArray[currentRandomNum];
+}
+
+/**
+ * Render the reading items to the view that is the list container
  *
  * @param {string} title - Title of tab
  * @param {string} url - Url of the tab
  * @param {string} timeStamp - Time the item was added
  * @param {string} label - Label to load for the list item
- * @param {string} key - The ID for the list item
+ * @param {string} id - The ID for the list item
  */
-function loadItems(title, url, timeStamp, label, key){
-    // Clone the list item template so the function doesn't overwrite the original template
-    var listItem = listItemTemplate.content.cloneNode(true);
-
-    // Set the id of the list item
-    listItem.querySelector('.listItems').setAttribute('id', key);
-
-    // Set the label of the list item
-    if(label.indexOf('label') >= 0) {
-        listItem.querySelector('.label').src = './assets/' + label;
-    }
-    else{
-        listItem.querySelector('.label').src = label;
-    }
-
-    // Set the title of the current tab
-    // 117 characters corresponds approximately to 5 rows at most
-    var titleOfArticleNode = listItem.querySelector('.titleOfArticle');
-    // Set title with title value to make text tooltip appear when hovering over text
-    titleOfArticleNode.setAttribute('title', title);
-    if(title.length > 117){
-        titleOfArticleNode.innerHTML = title.substring(0,117) + '...';
-    }
-    else {
-        titleOfArticleNode.innerHTML = title;
-    }
-    // Make title of list item clickable so it can redirect user to the url
-    titleOfArticleNode.addEventListener('click', function(){
-        window.open(url,'_blank');
-    });
-
-    // Set the time of when adding the article
-    listItem.querySelector('.timeStamp').innerHTML = timeStamp;
-
-    // Add click event to delete list item
-    listItem.querySelector('.deleteIcon').addEventListener('click', function(){
-        var listElement = document.getElementById(key);
-        listElement.parentNode.removeChild(listElement);
-        chrome.storage.local.remove(key, function(){
-            // Notify that successfully removed
-            console.log('Deletion successful!');
-            updateNumberOfListItems();
-        });
-    });
-
-    // Add the list item to the DOM
-    document.getElementById('list-container').appendChild(listItem);
-}
-
-/**
- * Add reading items to list Item
- *
- * @param {string} title - Title of tab
- * @param {string} url - Url of the tab
- * @param {string} timeStamp - Time the item was added
- */
-function addNewItem(title, url, timeStamp){
+function renderItems(title, url, timeStamp, label, id){
     // The use of chrome.storage is because we want to extract all the objects and later
     // get information on what the label of the last item was
     chrome.storage.local.get(null, function(objects){
-        chrome.tabs.captureVisibleTab(function(dataUrl) {
         // Clone the list item template so the function doesn't overwrite the original template
         var listItem = listItemTemplate.content.cloneNode(true);
 
-        // Get current date since 1 January 1970 00:00:00 UTC in milliseconds
-        var id = Date.now().toString();
-
-        // Set ID of the list item
+        // Set the id of the list item
         listItem.querySelector('.listItems').setAttribute('id', id);
 
-        // The label to store it into the data object
-        var label = dataUrl;
         // The last item label in the list
         var lastItemLabel;
         // Get the label of the last list item
         for(var key in objects){
             if(!objects.hasOwnProperty(key))
                 continue;
-
             lastItemLabel = objects[key].label;
         }
-        listItem.querySelector('.label').src = dataUrl;
+
+        // Set the label of the list item
+        if(label.indexOf('label') >= 0) {
+            var labelNode = listItem.querySelector('.label');
+            setLabelNodeProps(labelNode);
+            labelNode.src = './assets/' + label;
+            console.log(labelNode.src);
+        }
+        else{
+            listItem.querySelector('.label').src = label;
+        }
+        // Fallback on the picture labels if the current label somehow is broken
         listItem.querySelector('.label').onerror = function() {
-            // Generate a new random label that is not the same color as the label of the last list item
-            var currentRandomNum = Math.floor(Math.random() * (labelArray.length));
-            // Check if last item label really was a label and not a thumbnail
-            if(lastItemLabel.indexOf('label') >= 0){
-                while(labelArray.indexOf(lastItemLabel) === currentRandomNum){
-                    currentRandomNum = Math.floor(Math.random() * (labelArray.length));
-                }
-            }
-            listItem.querySelector('.label').src = './assets/' + labelArray[currentRandomNum];
-            label = labelArray[currentRandomNum];
+            var labelNode = listItem.querySelector('.label');
+            setLabelNodeProps(labelNode);
+            labelNode.src = './assets/' + generateLabel(lastItemLabel);
         };
 
         // Set the title of the current tab
         // 117 characters corresponds approximately to 5 rows at most
         var titleOfArticleNode = listItem.querySelector('.titleOfArticle');
+        if(title.length > 117){
+            title = title.substring(0,117) + '...';
+        }
+        titleOfArticleNode.innerHTML = title;
         // Set title with title value to make text tooltip appear when hovering over text
         titleOfArticleNode.setAttribute('title', title);
-        if(title.length > 117){
-            titleOfArticleNode.innerHTML = title.substring(0,117) + '...';
-        }
-        else {
-            titleOfArticleNode.innerHTML = title;
-        }
+
         // Make title of list item clickable so it can redirect user to the url
         titleOfArticleNode.addEventListener('click', function(){
             window.open(url,'_blank');
@@ -218,6 +184,42 @@ function addNewItem(title, url, timeStamp){
 
         // Set the time of when adding the article
         listItem.querySelector('.timeStamp').innerHTML = timeStamp;
+
+        // Add click event to delete list item
+        listItem.querySelector('.deleteIcon').addEventListener('click', function(){
+            var listElement = document.getElementById(id);
+            listElement.parentNode.removeChild(listElement);
+            chrome.storage.local.remove(id, function(){
+                // Notify that successfully removed
+                console.log('Deletion successful!');
+                updateNumberOfListItems();
+            });
+        });
+
+        // Add the list item to the DOM
+        document.getElementById('list-container').appendChild(listItem);
+    });
+}
+
+/**
+ * Add reading items to list Item and render it
+ *
+ * @param {string} title - Title of tab
+ * @param {string} url - Url of the tab
+ * @param {string} timeStamp - Time the item was added
+ * @param {boolean} isScreenShot - To generate label or not generate label
+ */
+function addNewItem(title, url, timeStamp, isScreenShot){
+    chrome.tabs.captureVisibleTab(function(dataUrl) {
+        // Get current date since 1 January 1970 00:00:00 UTC in milliseconds
+        var id = Date.now().toString();
+        var label;
+        if(isScreenShot){
+            label = dataUrl;
+        }
+        else{
+            label = generateLabel('');
+        }
 
         // Set the ID of the new list item
         // and store the new item locally in the computer to make it persistent
@@ -233,21 +235,8 @@ function addNewItem(title, url, timeStamp){
             // Modal should appear in the page action rather than in browser action
             console.log('Settings saved');
         });
-
-        // Add click event to delete list item
-        listItem.querySelector('.deleteIcon').addEventListener('click', function(){
-            var listElement = document.getElementById(id);
-            listElement.parentNode.removeChild(listElement);
-            chrome.storage.local.remove(id, function(){
-                // Notify that successfully removed
-                console.log('Deletion successful!');
-                updateNumberOfListItems();
-            });
-        });
-
-        // Add the list item to the DOM
-        document.getElementById('list-container').appendChild(listItem);
-        });
+        // Render the items to the DOM
+        renderItems(title, url, timeStamp, label, id);
     });
 }
 
@@ -261,8 +250,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 continue;
 
             var obj = objects[key];
-            console.log(obj);
-            loadItems(obj.title, obj.url, obj.date, obj.label, key);
+            renderItems(obj.title, obj.url, obj.date, obj.label, key);
         }
         updateNumberOfListItems();
     });

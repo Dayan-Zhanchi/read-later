@@ -87,6 +87,7 @@ addItemBtn.onclick = function() {
     if(/\S/.test(inputTitle.value) && urlPattern.test(inputURL.value)){
         var title = document.querySelector('#ititle').value;
         var url = document.querySelector('#url').value;
+        console.log(url);
 
         // Checking if the item to be added already exists in the storage
         chrome.storage.local.get(null, function (objects) {
@@ -107,7 +108,7 @@ addItemBtn.onclick = function() {
 
             // If the item does not exist, then add it to the list
             if(!flag){
-                addNewItem(title, url, dateTime);
+                addNewItem(title, url, dateTime, false);
                 inputTitle.value = '';
                 inputURL.value = '';
                 addItemModal.style.display = 'none';

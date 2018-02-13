@@ -209,7 +209,7 @@ function renderItems(title, url, timeStamp, label, id){
 
         // Make title of list item clickable so it can redirect user to the url
         titleOfArticleNode.addEventListener('click', function(){
-            window.open(url,'_blank');
+            chrome.tabs.update({url: url});
         });
 
         // Set the time of when adding the article

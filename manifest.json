@@ -10,6 +10,9 @@
     "default_popup": "popup.html",
     "default_title": "Read Later"
   },
+  "background":{
+    "scripts":["popup.js"]
+  },
   "commands": {
     "toggle-feature-addItem": {
       "suggested_key": {

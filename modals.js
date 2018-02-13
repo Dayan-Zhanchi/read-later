@@ -107,7 +107,7 @@ addItemBtn.onclick = function() {
 
             // If the item does not exist, then add it to the list
             if(!flag){
-                addNewItem(title, url, dateTime);
+                addNewItem(title, url, dateTime, false);
                 inputTitle.value = '';
                 inputURL.value = '';
                 addItemModal.style.display = 'none';

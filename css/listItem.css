@@ -26,6 +26,8 @@
     font-size: 14px;
     vertical-align: middle;
     cursor: pointer;
+    text-overflow: ellipsis;
+    white-space: pre-wrap;
 }
 
 .titleOfArticle:hover{

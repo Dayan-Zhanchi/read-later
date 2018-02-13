@@ -95,7 +95,8 @@ function getCurrentTabUrl(callback) {
 
 /**
  *
- * @param objects
+ * @param objects - Object that has information about the list items
+ * such as title, url, timestamp, id and label
  * @returns {string}
  */
 function getLabelOfLastItem(objects){
@@ -142,7 +143,7 @@ function generateLabel(lastItemLabel){
 
 /**
  *
- * @param title
+ * @param title - Title of the tab
  * @returns {string}
  */
 function shortenTitle(title){

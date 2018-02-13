@@ -87,7 +87,6 @@ addItemBtn.onclick = function() {
     if(/\S/.test(inputTitle.value) && urlPattern.test(inputURL.value)){
         var title = document.querySelector('#ititle').value;
         var url = document.querySelector('#url').value;
-        console.log(url);
 
         // Checking if the item to be added already exists in the storage
         chrome.storage.local.get(null, function (objects) {

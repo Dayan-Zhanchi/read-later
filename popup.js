@@ -162,6 +162,8 @@ function loadItems(title, url, timeStamp, label, key){
  * @param {string} timeStamp - Time the item was added
  */
 function addNewItem(title, url, timeStamp){
+    // The use of chrome.storage is because we want to extract all the objects and later
+    // get information on what the label of the last item was
     chrome.storage.local.get(null, function(objects){
         chrome.tabs.captureVisibleTab(function(dataUrl) {
         // Clone the list item template so the function doesn't overwrite the original template
@@ -259,6 +261,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 continue;
 
             var obj = objects[key];
+            console.log(obj);
             loadItems(obj.title, obj.url, obj.date, obj.label, key);
         }
         updateNumberOfListItems();

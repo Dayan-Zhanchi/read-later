@@ -1,11 +1,9 @@
 /*
 TODO Refactor code
-TODO Maybe change color palette, too much white and navbar is too bright
  */
 
-/*
- * This file handles the logic for adding, removing and rendering list items correctly
- */
+// This file handles the logic for adding, removing and rendering list items correctly
+
 
 // Get the template for list items
 var listItemTemplate = document.getElementById('listItem-template');

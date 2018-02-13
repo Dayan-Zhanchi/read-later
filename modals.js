@@ -1,6 +1,5 @@
-/*
- * This file handles the logic for modals, that is both the delete all modal and the add item list modal
- */
+// This file handles the logic for modals, that is both the delete all modal and the add item list modal
+
 
 // Retrieve the list container, containing all the list items
 var listItemContainer = document.getElementById('list-container');
@@ -20,7 +19,7 @@ var openAddItemBtn = document.getElementById('bookmarkIcon');
 var addCancelBtn = document.getElementById('add-cancel-btn');
 var addItemBtn = document.getElementById('add-btn');
 var closeAddItemBtn = document.getElementById('closeAddItemModal');
-// Retrieve the input forms, title and url
+// Retrieve the input forms, title and url in the add modal
 var inputTitle = document.getElementById('ititle');
 var inputURL = document.getElementById('url');
 
@@ -48,9 +47,9 @@ closeDeleteModalBtn.onclick = function() {
     deleteAllModal.style.display = 'none';
 };
 
-/*
- * All the click event for the add item modal
- */
+
+// All the click events for the add item modal
+
 openAddItemBtn.onclick = function() {
     addItemModal.style.display = 'block';
 };
@@ -115,7 +114,7 @@ addItemBtn.onclick = function() {
             }
             else{
                 addItemBtn.blur();
-                // A Modal should appear to inform user
+                // A toaster should appear to inform user
                 console.log('Can\'t add an already existing item to list');
             }
         });

@@ -8,21 +8,22 @@ var listItemTemplate = document.getElementById('listItem-template');
 // Store all label images in array so that functions can later randomly select a label
 var labelArray = ['label blue.png', 'label green.png', 'label purple.png', 'label red.png', 'label yellow.png'];
 
-// Update number of list items
-function updateNumberOfListItems(){
-    chrome.storage.local.get(null, function(objects) {
-        // Keep track of how many list items there are
-        var count = 0;
-        for (var key in objects) {
-            // skip loop if the property is from prototype
-            if (!objects.hasOwnProperty(key))
-                continue;
-
-            count++;
-        }
-        document.getElementById('numberOfItemsText').innerHTML = 'You have ' + count +
-            ' items to read';
-    });
+/**
+ *
+ * @param objects - Object that has information about the list items
+ * such as title, url, timestamp, id and label
+ * @returns {string}
+ */
+function getLabelOfLastItem(objects){
+    // The last item label in the list
+    var lastItemLabel = null;
+    // Get the label of the last list item
+    for(var key in objects){
+        if(!objects.hasOwnProperty(key))
+            continue;
+        lastItemLabel = objects[key].label;
+    }
+    return lastItemLabel;
 }
 
 
@@ -81,34 +82,7 @@ function getCurrentTabUrl(callback) {
                 console.log('Can\'t add an already existing item to list');
             }
         });
-
-        // Most methods of the Chrome extension APIs are asynchronous. This means that
-        // you CANNOT do something like this:
-        //
-        // var url;
-        // chrome.tabs.query(queryInfo, function(tabs) {
-        //   url = tabs[0].url;
-        // });
-        // alert(url); // Shows "undefined", because chrome.tabs.query is async.
     });
-}
-
-/**
- *
- * @param objects - Object that has information about the list items
- * such as title, url, timestamp, id and label
- * @returns {string}
- */
-function getLabelOfLastItem(objects){
-    // The last item label in the list
-    var lastItemLabel = null;
-    // Get the label of the last list item
-    for(var key in objects){
-        if(!objects.hasOwnProperty(key))
-            continue;
-        lastItemLabel = objects[key].label;
-    }
-    return lastItemLabel;
 }
 
 /**
@@ -122,6 +96,24 @@ function setLabelNodeProps(labelNode){
     labelNode.style.width = '49px';
     labelNode.style.height = '30px';
     labelNode.style.marginRight = '31px';
+}
+
+
+// Update number of list items
+function updateNumberOfListItems(){
+    chrome.storage.local.get(null, function(objects) {
+        // Keep track of how many list items there are
+        var count = 0;
+        for (var key in objects) {
+            // skip loop if the property is from prototype
+            if (!objects.hasOwnProperty(key))
+                continue;
+
+            count++;
+        }
+        document.getElementById('numberOfItemsText').innerHTML = 'You have ' + count +
+            ' items to read';
+    });
 }
 
 /**
@@ -161,6 +153,51 @@ function shortenTitle(title){
     }
 
     return title;
+}
+
+/**
+ * Add reading items to list Item and render it
+ *
+ * @param {string} title - Title of tab
+ * @param {string} url - Url of the tab
+ * @param {string} timeStamp - Time the item was added
+ * @param {boolean} isScreenShot - To generate label or not generate label
+ */
+function addNewItem(title, url, timeStamp, isScreenShot){
+    // The use of chrome.storage is because we want to extract all the objects and later
+    // get information on what the label of the last item was
+    chrome.storage.local.get(null, function(objects) {
+        chrome.tabs.captureVisibleTab(function (dataUrl) {
+            // Get current date since 1 January 1970 00:00:00 UTC in milliseconds
+            var id = Date.now().toString();
+            var label;
+            if (isScreenShot) {
+                label = dataUrl;
+            }
+            else {
+                var labelOfLastItem = getLabelOfLastItem(objects);
+                label = generateLabel(labelOfLastItem);
+            }
+
+            // Set the ID of the new list item
+            // and store the new item locally in the computer to make it persistent
+            var dataObj = {};
+            dataObj[id] = {
+                'title': title,
+                'url': url,
+                'date': timeStamp,
+                'label': label
+            };
+            chrome.storage.local.set(dataObj, function () {
+                updateNumberOfListItems();
+                // Notify that we saved.
+                // Modal should appear in the page action rather than in browser action
+                console.log('Settings saved');
+            });
+            // Render the items to the DOM
+            renderItems(title, url, timeStamp, label, id);
+        });
+    });
 }
 
 /**
@@ -228,51 +265,6 @@ function renderItems(title, url, timeStamp, label, id){
 
         // Add the list item to the DOM
         document.getElementById('list-container').appendChild(listItem);
-    });
-}
-
-/**
- * Add reading items to list Item and render it
- *
- * @param {string} title - Title of tab
- * @param {string} url - Url of the tab
- * @param {string} timeStamp - Time the item was added
- * @param {boolean} isScreenShot - To generate label or not generate label
- */
-function addNewItem(title, url, timeStamp, isScreenShot){
-    // The use of chrome.storage is because we want to extract all the objects and later
-    // get information on what the label of the last item was
-    chrome.storage.local.get(null, function(objects) {
-        chrome.tabs.captureVisibleTab(function (dataUrl) {
-            // Get current date since 1 January 1970 00:00:00 UTC in milliseconds
-            var id = Date.now().toString();
-            var label;
-            if (isScreenShot) {
-                label = dataUrl;
-            }
-            else {
-                var labelOfLastItem = getLabelOfLastItem(objects);
-                label = generateLabel(labelOfLastItem);
-            }
-
-            // Set the ID of the new list item
-            // and store the new item locally in the computer to make it persistent
-            var dataObj = {};
-            dataObj[id] = {
-                'title': title,
-                'url': url,
-                'date': timeStamp,
-                'label': label
-            };
-            chrome.storage.local.set(dataObj, function () {
-                updateNumberOfListItems();
-                // Notify that we saved.
-                // Modal should appear in the page action rather than in browser action
-                console.log('Settings saved');
-            });
-            // Render the items to the DOM
-            renderItems(title, url, timeStamp, label, id);
-        });
     });
 }
 
